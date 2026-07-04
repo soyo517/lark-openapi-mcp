@@ -176,6 +176,14 @@ By default, the MCP service enables common APIs. To enable other tools or only s
 }
 ```
 
+To enable every available tool at once, pass the special keyword `all` (or `preset.all`) to the `-t` parameter:
+
+```
+"-t", "all"
+```
+
+> **⚠️ Notice**: Enabling all tools significantly increases the context consumed by the MCP client and exposes write operations for every Lark domain. Prefer explicit tool lists or presets in production setups.
+
 For detailed information about all preset tool collections and which tools are included in each preset, please refer to the [Preset Tool Collections Reference](./docs/reference/tool-presets/presets.md).
 
 A complete list of all supported Feishu/Lark tools can be found in [tools.md](./docs/reference/tool-presets/tools-en.md).

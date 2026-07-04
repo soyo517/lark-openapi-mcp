@@ -26,6 +26,7 @@ jest.mock('../../../src/mcp-tool', () => {
     presetTools: {
       'preset.default': ['default-tool-1', 'default-tool-2'],
     },
+    AllTools: [{ name: 'all-tool-1' }, { name: 'all-tool-2' }, { name: 'all-tool-3' }],
     RecallTool: {
       name: 'RecallTool',
       description: 'RecallTool description',
@@ -150,6 +151,50 @@ describe('initOAPIMcpServer', () => {
       expect.objectContaining({
         toolsOptions: expect.objectContaining({
           allowTools: ['tool1', 'tool2'],
+        }),
+      }),
+      undefined,
+    );
+  });
+
+  it("应该在tools包含'all'时启用全部工具", () => {
+    const options = {
+      appId: 'test-app-id',
+      appSecret: 'test-app-secret',
+      tools: ['all'],
+      host: 'localhost',
+      port: 3000,
+    };
+
+    initOAPIMcpServer(options);
+
+    const { LarkMcpTool } = require('../../../src/mcp-tool');
+    expect(LarkMcpTool).toHaveBeenCalledWith(
+      expect.objectContaining({
+        toolsOptions: expect.objectContaining({
+          allowTools: ['all-tool-1', 'all-tool-2', 'all-tool-3'],
+        }),
+      }),
+      undefined,
+    );
+  });
+
+  it("应该在tools包含'preset.all'时启用全部工具", () => {
+    const options = {
+      appId: 'test-app-id',
+      appSecret: 'test-app-secret',
+      tools: ['preset.all', 'tool1'],
+      host: 'localhost',
+      port: 3000,
+    };
+
+    initOAPIMcpServer(options);
+
+    const { LarkMcpTool } = require('../../../src/mcp-tool');
+    expect(LarkMcpTool).toHaveBeenCalledWith(
+      expect.objectContaining({
+        toolsOptions: expect.objectContaining({
+          allowTools: ['all-tool-1', 'all-tool-2', 'all-tool-3'],
         }),
       }),
       undefined,

@@ -20,7 +20,7 @@ export function initOAPIMcpServer(options: McpServerOptions, authHandler?: LarkA
 
   // Special 'all' keyword: enable every available tool
   if (allowTools.includes('all') || allowTools.includes('preset.all')) {
-    allowTools = larkmcp.AllTools.map((t) => t.name as larkmcp.ToolName);
+    allowTools = larkmcp.AllTools.map((t) => t.name);
   } else {
     for (const [presetName, presetTools] of Object.entries(larkmcp.presetTools)) {
       if (allowTools.includes(presetName)) {

@@ -1,3 +1,8 @@
+# Unreleased
+- Feat: `-t` 参数支持 `all` / `preset.all` 关键字，一次性启用全部工具
+
+- Feat: The `-t` option now accepts the `all` / `preset.all` keyword to enable every available tool at once.
+
 # 0.5.1
 - Fix: 修复login再次登录的时候没有正确唤起授权
 
