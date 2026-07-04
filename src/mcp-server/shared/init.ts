@@ -18,9 +18,14 @@ export function initOAPIMcpServer(options: McpServerOptions, authHandler?: LarkA
 
   let allowTools = options.tools || [];
 
-  for (const [presetName, presetTools] of Object.entries(larkmcp.presetTools)) {
-    if (allowTools.includes(presetName)) {
-      allowTools = [...presetTools, ...allowTools];
+  // Special 'all' keyword: enable every available tool
+  if (allowTools.includes('all') || allowTools.includes('preset.all')) {
+    allowTools = larkmcp.AllTools.map((t) => t.name as larkmcp.ToolName);
+  } else {
+    for (const [presetName, presetTools] of Object.entries(larkmcp.presetTools)) {
+      if (allowTools.includes(presetName)) {
+        allowTools = [...presetTools, ...allowTools];
+      }
     }
   }
 
